@@ -1,6 +1,5 @@
 
 
-using LinearAlgebra: qr, pinv, eigvals
 using SphericalTensors
 const TK = SphericalTensors
 using DMRG, InfiniteDMRG

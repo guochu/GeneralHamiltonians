@@ -13,7 +13,6 @@ export FermionicSymmetry, SpinfulFermionicSymmetry, ChargeCharge, SpinCharge, Sp
 export FermionicSymmetrySector, ChargeChargeSector, SpinChargeSector, space, ChargeSector
 export twobody, fourbody, creation
 
-using LinearAlgebra: qr, pinv, eigvals
 using SphericalTensors
 const TK = SphericalTensors
 using DMRG, InfiniteDMRG

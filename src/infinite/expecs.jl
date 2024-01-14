@@ -3,7 +3,7 @@
 The infinite MPS is assumed to be in the canonical form
 """
 function DMRG.expectation(m::QTerm, psi::InfiniteMPS)
-	DMRG.svectors_uninitialized(psi) && throw(ArgumentError("A canonical form infinite MPS is assumed"))
+	# DMRG.svectors_uninitialized(psi) && throw(ArgumentError("A canonical form infinite MPS is assumed"))
 	return _expectation_canonical(m, psi)
 end 
 

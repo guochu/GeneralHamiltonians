@@ -3,7 +3,7 @@ abstract type AbstractQuantumTerm end
 
 DMRG.positions(x::AbstractQuantumTerm) = x.positions
 op(x::AbstractQuantumTerm) = x.op
-DMRG.coeff(x::AbstractQuantumTerm) = x.coeff
+coeff(x::AbstractQuantumTerm) = x.coeff
 
 DMRG.space_l(x::AbstractQuantumTerm) = space(op(x)[1], 1)
 DMRG.space_r(x::AbstractQuantumTerm) = space(op(x)[end], 3)

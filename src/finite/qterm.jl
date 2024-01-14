@@ -81,7 +81,7 @@ end
 Base.adjoint(m::QTerm) = AdjointQTerm(m)
 Base.adjoint(m::AdjointQTerm) = m.parent
 DMRG.positions(m::AdjointQTerm) = positions(m.parent)
-DMRG.coeff(m::AdjointQTerm) = conj(coeff(m.parent))
+coeff(m::AdjointQTerm) = conj(coeff(m.parent))
 op(m::AdjointQTerm) = error("op for AdjointQTerm type is not supported")
 TK.scalartype(::Type{AdjointQTerm{M, C}}) where {M<:MPOTensor, C<:ScalarCoefficient} = promote_type(scalartype(M), scalartype(C))
 

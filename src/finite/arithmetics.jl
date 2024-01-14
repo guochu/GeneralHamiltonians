@@ -4,7 +4,7 @@ function DMRG.apply!(t::QTerm, mps::AbstractMPS)
 	T = scalartype(mps)
 	physpaces = [space(mps[i], 2) for i in _start:_end]
 	mpo = prodmpo(T, physpaces, positions(t) .- (_start-1), op(t)) * scalar(coeff(t))
-	mpo_scale = coeff(mpo)
+	mpo_scale = one(scalartype(mps))
 
 	M = tensormaptype(S, 2, 3, T)
 	r = Vector{M}(undef, _end - _start + 1)

@@ -28,7 +28,7 @@ value(x::Coefficient) = x.value
 TK.scalar(x::ScalarCoefficient) = value(x)
 TK.scalar(x::FunctionCoefficient) = throw(ArgumentError("cannot convert a function into a scalar"))
 Base.copy(x::Coefficient) = Coefficient(value(x))
-DMRG.coeff(x::AllowedCoefficient) = Coefficient(x)
+coeff(x::AllowedCoefficient) = Coefficient(x)
 
 Base.:+(x::ScalarCoefficient, y::ScalarCoefficient) = Coefficient(value(x) + value(y))
 Base.:+(x::FunctionCoefficient, y::ScalarCoefficient) = x + value(y)

@@ -10,9 +10,9 @@ Random.seed!(1342)
 
 include("util.jl")
 
-include("auxiliary.jl")
+# include("auxiliary.jl")
 
 
-include("finitesystem.jl")
+# include("finitesystem.jl")
 
 include("infinitesystem.jl")

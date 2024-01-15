@@ -29,7 +29,7 @@ function expectation_canonical(m::QTerm, psi::MPS)
 	return _expectation_canonical(m, psi)
 end
 
-function DMRG.expectation(psiA::AbstractMPS, m::QTerm, psiB::AbstractMPS, envs::OverlapCache=environments(psiA, psiB))
+function DMRG.expectation(psiA::AbstractFiniteMPS, m::QTerm, psiB::AbstractFiniteMPS, envs=environments(psiA, psiB))
 	cstorage = envs.cstorage
 	(length(psiA) == length(psiB) == length(cstorage)-1) || throw(DimensionMismatch())
 	isstrict(m) || throw(ArgumentError("onlt strict QTerm is allowed"))
@@ -60,9 +60,8 @@ end
 DMRG.expectation(m::QTerm, psi::MPS; iscanonical::Bool=false) = iscanonical ? expectation_canonical(m, psi) : expectation(psi, m, psi)
 DMRG.expectation(m::QTerm, psi::ExactMPS) = expectation(psi, m, psi)
 
-function DMRG.expectation(psiA::AbstractMPS, h::QuantumOperator, psiB::AbstractMPS)
+function DMRG.expectation(psiA::AbstractFiniteMPS, h::QuantumOperator, psiB::AbstractFiniteMPS, envs=environments(psiA, psiB))
 	(length(h) <= length(psiA)) || throw(DimensionMismatch())
-	envs = environments(psiA, psiB)
 	r = 0.
 	for m in qterms(h)
 		r += expectation(psiA, m, psiB, envs)

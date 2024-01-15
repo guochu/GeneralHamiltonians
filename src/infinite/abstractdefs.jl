@@ -6,7 +6,7 @@ TK.spacetype(x::AbstractInfiniteQuantumOperator) = spacetype(typeof(x))
 TK.spacetype(::Type{<:AbstractInfiniteQuantumOperator{S}}) where {S} = S
 Base.isempty(s::AbstractInfiniteQuantumOperator) = isempty(storage(s))
 Base.length(x::AbstractInfiniteQuantumOperator) = length(physical_spaces(x))
-unitcell_size(x::AbstractInfiniteQuantumOperator) = length(x)
+InfiniteDMRG.unitcell_size(x::AbstractInfiniteQuantumOperator) = length(x)
 
 isconstant(x::AbstractInfiniteQuantumOperator) = all(isconstant, storage(x))
 

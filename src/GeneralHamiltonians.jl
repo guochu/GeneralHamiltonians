@@ -16,7 +16,7 @@ export twobody, fourbody, creation
 using SphericalTensors
 const TK = SphericalTensors
 using DMRG, InfiniteDMRG
-using DMRG: OverlapCache, updateright, compute_scalartype
+using DMRG: updateright, compute_scalartype
 
 # auxiliary
 include("auxiliary/coeff.jl")

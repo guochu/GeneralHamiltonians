@@ -24,7 +24,7 @@ const ScalarCoefficient{T} = Coefficient{T} where {T <: Number}
 const FunctionCoefficient{T} = Coefficient{T} where {T <: Function}
 
 # value(x::Number) = x
-value(x::Coefficient) = x.value
+DMRG.value(x::Coefficient) = x.value
 TK.scalar(x::ScalarCoefficient) = value(x)
 TK.scalar(x::FunctionCoefficient) = throw(ArgumentError("cannot convert a function into a scalar"))
 Base.copy(x::Coefficient) = Coefficient(value(x))

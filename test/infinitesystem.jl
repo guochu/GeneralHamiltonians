@@ -40,7 +40,7 @@ end
 
 	@test max_error(obs1, obs3) < tol
 
-	obs4 = [expectation(ob, imps, iscanonical=true) for ob in observers2]
+	obs4 = [expectation_canonical(ob, imps) for ob in observers2]
 
 	@test max_error(obs1, obs4) < tol
 

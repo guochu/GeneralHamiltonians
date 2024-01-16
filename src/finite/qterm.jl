@@ -87,13 +87,24 @@ TK.scalartype(::Type{AdjointQTerm{M, C}}) where {M<:MPOTensor, C<:ScalarCoeffici
 
 
 function Base.convert(::Type{<:QTerm}, m::AdjointQTerm) 
-	isstrict(m.parent) || throw(ArgumentError("can not convert non-strict QTerm adjoint into a QTerm."))
+	isstrict(m.parent) || throw(ArgumentError("can not convert non-strict QTerm adjoint into a QTerm"))
 	QTerm(positions(m.parent), DMRG.unsafe_mpotensor_adjoint.(op(m.parent)), conj(coeff(m.parent)) )
 end 
+function Base.convert(::Type{<:QTerm}, m::PartialMPO)
+	return QTerm(positions(m), m.data)
+end
+function Base.convert(::Type{<:PartialMPO}, m::QTerm)
+	isconstant(m) || throw(ArgumentError("can not convert a non-constant QTerm into PartialMPO"))
+	ops = copy(op(m))
+	if (!isempty(ops)) && (value(coeff(m)) != 1)
+		ops[1] *= value(coeff(m))
+	end
+	return PartialMPO(positions(m), ops)
+end
 
 function check_qterm_positions(pos::Vector{Int})
 	(length(Set(pos)) == length(pos)) || throw(ArgumentError("duplicate positions not allowed"))
-	(sort(pos) == pos) || throw(ArgumentError("QTerm positions should be strictly ordered."))
+	(sort(pos) == pos) || throw(ArgumentError("QTerm positions should be strictly ordered"))
 end
 
 function _parse_pairs(x::Pair{Int}...) 

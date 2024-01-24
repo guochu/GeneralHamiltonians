@@ -9,7 +9,7 @@ end
 DMRG.prodmpo(physpaces::Vector{<: ElementarySpace}, m::AdjointQTerm) = adjoint(prodmpo(physpaces, m.parent))
 
 
-function DMRG.MPO(h::QuantumOperator, alg::MPOCompression) 
+function DMRG.MPO(h::QuantumOperator, alg::DMRGAlgorithm) 
 	physpaces = physical_spaces(h)
 	local mpo
 	compress_threshold = 20
@@ -28,4 +28,4 @@ function DMRG.MPO(h::QuantumOperator, alg::MPOCompression)
 	mpo = compress!(mpo, alg)
 	return mpo
 end
-DMRG.MPO(h::QuantumOperator; alg::MPOCompression = Deparallelise()) = MPO(h, alg)
+DMRG.MPO(h::QuantumOperator; alg::DMRGAlgorithm = Deparallelise()) = MPO(h, alg)

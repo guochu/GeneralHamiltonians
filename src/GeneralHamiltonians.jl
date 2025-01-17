@@ -13,8 +13,8 @@ export FermionicSymmetry, SpinfulFermionicSymmetry, ChargeCharge, SpinCharge, Sp
 export FermionicSymmetrySector, ChargeChargeSector, SpinChargeSector, space, ChargeSector
 export twobody, fourbody, creation
 
-using SphericalTensors
-const TK = SphericalTensors
+using TensorKit
+const TK = TensorKit
 using DMRG, InfiniteDMRG
 using DMRG: updateright, compute_scalartype
 

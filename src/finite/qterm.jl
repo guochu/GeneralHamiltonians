@@ -35,7 +35,7 @@ function QTerm(pos::Vector{Int}, m::Vector, v::Coefficient)
 	for i in 1:L
 		mj = m[i]
 		if isa(mj, MPSBondTensor)
-			tmp = id(Matrix{T}, left)
+			tmp = id(T, left)
 			@tensor mj[-1 -2; -3 -4] := tmp[-1, -3] * mj[-2, -4]
 		elseif isa(mj, AbelianMatrix)
 			mj = tompotensor(mj, left=left)
@@ -70,7 +70,7 @@ Base.:(==)(x::QTerm, y::QTerm)  = (positions(x) == positions(y)) && (op(x) == op
 Base.:*(s::QTerm, m::AllowedCoefficient) = QTerm(positions(s), op(s), coeff(s) * Coefficient(m))
 
 shift(m::QTerm, i::Int) = QTerm(positions(m) .+ i, op(m), coeff(m))
-TK.id(x::QTerm) = QTerm(positions(x), [id(Matrix{scalartype(x)}, oneunit(spacetype(x)) ⊗ space(m, 2)) for m in op(x)], coeff=1.)
+TK.id(x::QTerm) = QTerm(positions(x), [id(scalartype(x), oneunit(spacetype(x)) ⊗ space(m, 2)) for m in op(x)], coeff=1.)
 
 
 # Qterm adjoint

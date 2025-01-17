@@ -1,5 +1,5 @@
-using SphericalTensors
-const TK = SphericalTensors
+using TensorKit
+const TK = TensorKit
 using DMRG, InfiniteDMRG
 using DMRG: updateright, compute_scalartype
 

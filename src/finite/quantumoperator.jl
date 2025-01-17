@@ -129,4 +129,4 @@ end
 # 	isstrict(m) || error(ArgumentError("only strict QTerm allowed"))
 # 	return _join(op(m)) * value(coeff(m))
 # end
-get_trivial_leg(m::AbstractTensorMap) = TensorMap(ones,scalartype(m),oneunit(space(m,1)), one(space(m,1)))
+get_trivial_leg(m::AbstractTensorMap) = ones(scalartype(m),oneunit(space(m,1)), one(space(m,1)))

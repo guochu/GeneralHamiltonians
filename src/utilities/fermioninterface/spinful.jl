@@ -70,29 +70,29 @@ function spinal_fermion_site_ops_u1_su2()
 	bh = Rep[U₁×SU₂]((1, 0.5)=>1)
 	vh = oneunit(ph)
 	# JW operator is contained in adag
-	adag = TensorMap(zeros, Float64, vh ⊗ ph ← bh ⊗ ph)
-	blocks(adag)[Irrep[U₁](1) ⊠ Irrep[SU₂](0.5)] = ones(1,1)
-	blocks(adag)[Irrep[U₁](2) ⊠ Irrep[SU₂](0)] = sqrt(2) * ones(1,1) 
+	adag = zeros(Float64, vh ⊗ ph ← bh ⊗ ph)
+	copy!(block(adag, Irrep[U₁](1) ⊠ Irrep[SU₂](0.5)), ones(1,1))
+	copy!(block(adag, Irrep[U₁](2) ⊠ Irrep[SU₂](0)), sqrt(2) * ones(1,1))
 
 	bh = Rep[U₁×SU₂]((-1, 0.5)=>1)
-	a = TensorMap(zeros, Float64, vh ⊗ ph ← bh ⊗ ph)
-	blocks(a)[Irrep[U₁](1) ⊠ Irrep[SU₂](0.5)] = ones(1,1)
-	blocks(a)[Irrep[U₁](0) ⊠ Irrep[SU₂](0)] = -sqrt(2) * ones(1,1) 
+	a = zeros(Float64, vh ⊗ ph ← bh ⊗ ph)
+	copy!(block(a, Irrep[U₁](1) ⊠ Irrep[SU₂](0.5)), ones(1,1))
+	copy!(block(a, Irrep[U₁](0) ⊠ Irrep[SU₂](0)), -sqrt(2) * ones(1,1))
 
 
-	onsite_interact = TensorMap(zeros, Float64, ph ← ph)
-	blocks(onsite_interact)[Irrep[U₁](2) ⊠ Irrep[SU₂](0)] = ones(1, 1)
+	onsite_interact = zeros(Float64, ph ← ph)
+	copy!(block(onsite_interact, Irrep[U₁](2) ⊠ Irrep[SU₂](0)), ones(1, 1))
 
-	JW = TensorMap(ones, Float64, ph ← ph)
-	blocks(JW)[Irrep[U₁](1) ⊠ Irrep[SU₂](0.5)] = -ones(1, 1)
+	JW = ones(Float64, ph ← ph)
+	copy!(block(JW, Irrep[U₁](1) ⊠ Irrep[SU₂](0.5)), -ones(1, 1))
 
 	# adagJW = TensorMap(zeros, Float64, vh ⊗ ph ← bh ⊗ ph)
 	# blocks(adagJW)[Irrep[U₁](0) ⊠ Irrep[SU₂](0.5)] = ones(1,1)
 	# blocks(adagJW)[Irrep[U₁](0.5) ⊠ Irrep[SU₂](0)] = -sqrt(2) * ones(1,1) 
 
-	n = TensorMap(ones, Float64, ph ← ph)
-	blocks(n)[Irrep[U₁](0) ⊠ Irrep[SU₂](0)] = zeros(1, 1)
-	blocks(n)[Irrep[U₁](2) ⊠ Irrep[SU₂](0)] = 2 * ones(1, 1)
+	n = ones(Float64, ph ← ph)
+	copy!(block(n, Irrep[U₁](0) ⊠ Irrep[SU₂](0)), zeros(1, 1))
+	copy!(block(n, Irrep[U₁](2) ⊠ Irrep[SU₂](0)), 2 * ones(1, 1))
 
 	return Dict("+"=>adag, "-"=>a, "n↑n↓"=>onsite_interact, "JW"=>JW, "n"=>n)
 end
@@ -102,39 +102,39 @@ function spinal_fermion_site_ops_u1_u1()
 	vacuum = oneunit(ph)
 
 	# adag
-	adagup = TensorMap(zeros, Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((1,0)=>1) ⊗ ph )
-	blocks(adagup)[Irrep[U₁](1) ⊠ Irrep[U₁](0)] = ones(1,1)
-	blocks(adagup)[Irrep[U₁](1) ⊠ Irrep[U₁](1)] = ones(1,1)
+	adagup = zeros(Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((1,0)=>1) ⊗ ph )
+	copy!(block(adagup, Irrep[U₁](1) ⊠ Irrep[U₁](0)), ones(1,1))
+	copy!(block(adagup, Irrep[U₁](1) ⊠ Irrep[U₁](1)), ones(1,1))
 
 	# JW operator is not contained in adagdown
-	adagdown = TensorMap(zeros, Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((0,1)=>1) ⊗ ph)
-	blocks(adagdown)[Irrep[U₁](0) ⊠ Irrep[U₁](1)] = ones(1,1)
-	blocks(adagdown)[Irrep[U₁](1) ⊠ Irrep[U₁](1)] = -ones(1,1)
+	adagdown = zeros(Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((0,1)=>1) ⊗ ph)
+	copy!(block(adagdown, Irrep[U₁](0) ⊠ Irrep[U₁](1)), ones(1,1))
+	copy!(block(adagdown, Irrep[U₁](1) ⊠ Irrep[U₁](1)),  -ones(1,1))
 
 	adag = cat(adagup, adagdown, dims=3)
 
 	# a
-	aup = TensorMap(zeros, Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((-1,0)=>1) ⊗ ph)
-	blocks(aup)[Irrep[U₁](0) ⊠ Irrep[U₁](0)] = ones(1,1)
-	blocks(aup)[Irrep[U₁](0) ⊠ Irrep[U₁](1)] = ones(1,1)
+	aup = zeros(Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((-1,0)=>1) ⊗ ph)
+	copy!(block(aup, Irrep[U₁](0) ⊠ Irrep[U₁](0)), ones(1,1))
+	copy!(block(aup, Irrep[U₁](0) ⊠ Irrep[U₁](1)), ones(1,1))
 
-	adown = TensorMap(zeros, Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((0,-1)=>1) ⊗ ph)
-	blocks(adown)[Irrep[U₁](0) ⊠ Irrep[U₁](0)] = ones(1,1)
-	blocks(adown)[Irrep[U₁](1) ⊠ Irrep[U₁](0)] = -ones(1,1)
+	adown = zeros(Float64, vacuum ⊗ ph ← Rep[U₁×U₁]((0,-1)=>1) ⊗ ph)
+	copy!(block(adown, Irrep[U₁](0) ⊠ Irrep[U₁](0)), ones(1,1))
+	copy!(block(adown, Irrep[U₁](1) ⊠ Irrep[U₁](0)), -ones(1,1))
 
 	a = cat(aup, - adown, dims=3)
 
 
-	onsite_interact = TensorMap(zeros, Float64, ph ← ph)
-	blocks(onsite_interact)[Irrep[U₁](1) ⊠ Irrep[U₁](1)]= ones(1,1)
+	onsite_interact = zeros(Float64, ph ← ph)
+	copy!(block(onsite_interact, Irrep[U₁](1) ⊠ Irrep[U₁](1)), ones(1,1))
 
-	JW = TensorMap(ones, Float64, ph ← ph)
-	blocks(JW)[Irrep[U₁](1) ⊠ Irrep[U₁](0)] = -ones(1, 1)
-	blocks(JW)[Irrep[U₁](0) ⊠ Irrep[U₁](1)] = -ones(1, 1)
+	JW = ones(Float64, ph ← ph)
+	copy!(block(JW, Irrep[U₁](1) ⊠ Irrep[U₁](0)), -ones(1, 1))
+	copy!(block(JW, Irrep[U₁](0) ⊠ Irrep[U₁](1)), -ones(1, 1))
 
-	occupy = TensorMap(ones, Float64, ph ← ph)
-	blocks(occupy)[Irrep[U₁](0) ⊠ Irrep[U₁](0)] = zeros(1, 1)
-	blocks(occupy)[Irrep[U₁](1) ⊠ Irrep[U₁](1)] = 2 * ones(1, 1)
+	occupy = ones(Float64, ph ← ph)
+	copy!(block(occupy, Irrep[U₁](0) ⊠ Irrep[U₁](0)), zeros(1, 1))
+	copy!(block(occupy, Irrep[U₁](1) ⊠ Irrep[U₁](1)), 2 * ones(1, 1))
 	return Dict("+"=>adag, "-"=>a, "n↑n↓"=>onsite_interact, "JW"=>JW, "n"=>occupy)
 end
 

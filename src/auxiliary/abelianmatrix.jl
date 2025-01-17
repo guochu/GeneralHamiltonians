@@ -186,7 +186,7 @@ function tompotensor(m::AbelianMatrix{S}; left::S=oneunit(S)) where {S <: Graded
 		end
 	end
 	right = S(item=>1 for item in right_sectors)
-	r = TensorMap(zeros, left ⊗ phy ← right ⊗ phy )
+	r = zeros(left ⊗ phy ← right ⊗ phy )
 	for (k, v) in raw_data(m)
 		ko, ki = k
 		for _l in sectors(left)
